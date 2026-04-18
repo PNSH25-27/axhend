@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNSH × MUSE-X 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #f5c842;
+  --gold2: #c8860a;
+  --cyan: #00e5ff;
+  --green: #39ff9a;
+  --dark: #05050f;
+  --border: rgba(255,255,255,0.09);
+  --text: #e8e8f0;
+  --muted: rgba(232,232,240,0.48);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+/* STATIC star background — single CSS paint, zero animation cost */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 23% 42%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 38% 7%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 52% 28%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 67% 55%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 80% 12%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 91% 38%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 5%  72%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 17% 88%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 29% 63%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 44% 79%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 58% 91%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 73% 74%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1.5px 1.5px at 85% 86%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 96% 61%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 3%  49%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 14% 31%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 33% 19%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 47% 44%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1.5px 1.5px at 61% 8%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 76% 33%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 88% 50%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 7%  95%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 21% 77%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1.5px 1.5px at 55% 68%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 69% 82%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 83% 97%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 42% 55%, rgba(0,229,255,.35), transparent),
+    radial-gradient(1px 1px at 71% 20%, rgba(57,255,154,.25), transparent),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,229,255,.06), transparent),
+    radial-gradient(ellipse 50% 40% at 90% 90%, rgba(57,255,154,.04), transparent);
+}
+
+/* HERO */
+#hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 3rem 1.5rem 5rem; text-align: center;
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black, transparent);
+}
+
+/* PYRAMID */
+.pyramid-wrap {
+  position: relative; width: 260px; height: 260px;
+  margin-bottom: 2.5rem;
+  animation: bob 7s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+.pyramid-svg { width:100%; height:100%; }
+
+.pyr-glow {
+  position: absolute; bottom: -12px; left: 50%;
+  width: 160px; height: 30px;
+  background: radial-gradient(ellipse, rgba(0,229,255,.35), transparent 70%);
+  border-radius: 50%; transform: translateX(-50%);
+  animation: glow 3.5s ease-in-out infinite;
+  will-change: opacity;
+}
+@keyframes glow { 0%,100%{opacity:.5} 50%{opacity:1} }
+
+/* BADGE */
+.badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid rgba(0,229,255,.3); border-radius: 100px;
+  padding: .35rem 1.1rem; font-size: .72rem; font-weight: 600;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--cyan);
+  margin-bottom: 1.2rem;
+  animation: fadeUp .7s ease both;
+}
+.bdot { width:6px; height:6px; border-radius:50%; background:var(--cyan); animation: blink 1.6s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* HERO TITLE */
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 11vw, 7.5rem);
+  line-height: .92; letter-spacing: .02em;
+  animation: fadeUp .7s .15s ease both;
+}
+.ht-white { color:#fff }
+.ht-gold  { background:linear-gradient(90deg,var(--gold),var(--gold2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.ht-cyan  { color:var(--cyan) }
+
+.hero-sub {
+  font-size:1rem; font-weight:300; color:var(--muted);
+  max-width:480px; margin:1.2rem auto 0; line-height:1.7;
+  animation: fadeUp .7s .3s ease both;
+}
+.hero-pills {
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  justify-content:center; margin-top:1.8rem;
+  animation: fadeUp .7s .45s ease both;
+}
+.pill-gold {
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#000; font-weight:800; font-size:.82rem;
+  letter-spacing:.1em; padding:.55rem 1.4rem; border-radius:100px; text-transform:uppercase;
+}
+.pill-muted { font-size:.82rem; color:var(--muted); font-weight:500; }
+
+.scroll-hint {
+  position:absolute; bottom:1.8rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:.4rem;
+  font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+  animation: fadeUp .7s 1s ease both;
+}
+.scroll-line {
+  width:1px; height:44px;
+  background:linear-gradient(to bottom, var(--muted), transparent);
+  animation: spulse 2s ease-in-out infinite; will-change:opacity;
+}
+@keyframes spulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+/* LOGOS */
+#logos { position:relative; z-index:1; padding:4rem 1.5rem; }
+.logos-inner { max-width:860px; margin:0 auto; }
+.sec-label {
+  text-align:center; font-size:.68rem; font-weight:700;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-bottom:2.5rem;
+}
+.logos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+.logo-slot {
+  aspect-ratio:16/9; border:1.5px dashed rgba(255,255,255,.13); border-radius:14px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.7rem;
+  background:rgba(255,255,255,.04);
+  transition:border-color .25s, background .25s, transform .25s;
+}
+.logo-slot:hover { border-color:rgba(0,229,255,.35); background:rgba(0,229,255,.05); transform:translateY(-3px); }
+.logo-icon {
+  width:40px; height:40px; border-radius:10px; border:1.5px dashed rgba(255,255,255,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; color:rgba(255,255,255,.25);
+}
+.logo-lbl { font-size:.62rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.18); }
+
+/* MARQUEE */
+.marquee-wrap {
+  overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:.9rem 0; margin-bottom:4rem;
+}
+.marquee-track {
+  display:flex; gap:2.5rem; white-space:nowrap;
+  animation:marquee 22s linear infinite; will-change:transform;
+}
+.mi { font-family:'Bebas Neue',sans-serif; font-size:.9rem; letter-spacing:.2em; color:var(--muted); flex-shrink:0; display:flex; align-items:center; gap:.9rem; }
+.mi span { color:var(--gold); }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* AGENDA */
+#agenda { position:relative; z-index:1; padding:2rem 1.5rem 6rem; }
+.agenda-inner { max-width:860px; margin:0 auto; }
+.sec-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.2rem,6vw,3.8rem); text-align:center; letter-spacing:.04em; margin-bottom:.4rem;
+}
+.sec-sub { text-align:center; color:var(--muted); font-size:.95rem; font-weight:300; margin-bottom:3.5rem; }
+
+/* OVERVIEW */
+.overview {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border); border-radius:16px; overflow:hidden;
+  margin-bottom:2.5rem; background:rgba(255,255,255,.04);
+}
+.ov { display:flex; flex-direction:column; align-items:center; padding:1.5rem 1rem; text-align:center; border-right:1px solid var(--border); }
+.ov:last-child { border-right:none; }
+.ov-val { font-family:'Bebas Neue',sans-serif; font-size:2.6rem; line-height:1; color:#fff; }
+.ov-lbl { font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:.3rem; }
+
+/* TIMELINE PROGRESS */
+.tl-prog {
+  display:flex; align-items:center;
+  border:1px solid var(--border); border-radius:14px;
+  padding:1rem 1.2rem; margin-bottom:3rem; background:rgba(0,0,0,.25);
+}
+.tp { flex:1; display:flex; flex-direction:column; align-items:center; gap:.35rem; }
+.tp-dot { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.55rem; font-weight:700; }
+.tp-time { font-family:'Bebas Neue',sans-serif; font-size:.85rem; color:#fff; }
+.tp-name { font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center; }
+.tc .tp-dot  { background:rgba(0,229,255,.15); border:1.5px solid var(--cyan);  color:var(--cyan); }
+.tg .tp-dot  { background:rgba(245,200,66,.15); border:1.5px solid var(--gold);  color:var(--gold); }
+.tgr .tp-dot { background:rgba(57,255,154,.15); border:1.5px solid var(--green); color:var(--green); }
+.tw .tp-dot  { background:rgba(255,255,255,.08); border:1.5px solid rgba(255,255,255,.3); color:#fff; }
+
+/* ACTIVITY */
+.activity { margin-bottom:2rem; opacity:0; transform:translateX(-16px); transition:opacity .5s ease, transform .5s ease; }
+.activity.visible { opacity:1; transform:translateX(0); }
+
+.act-card {
+  border:1px solid var(--border); border-radius:18px; overflow:hidden;
+  background:rgba(255,255,255,.05);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.act-card:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,.35); }
+.act-bar { height:2px; width:100%; }
+
+.card-head { padding:1.6rem 1.8rem 1.1rem; display:flex; align-items:flex-start; gap:1.2rem; flex-wrap:wrap; }
+.card-meta { flex:1; min-width:0; display:flex; flex-direction:column; gap:.35rem; }
+.card-num  { font-size:.68rem; letter-spacing:.15em; color:var(--muted); font-weight:600; }
+.card-tag  { display:inline-block; font-size:.62rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; padding:.2rem .7rem; border-radius:100px; width:fit-content; }
+.card-ttl  { font-family:'DM Serif Display',serif; font-size:clamp(1.15rem,2.5vw,1.55rem); line-height:1.2; color:#fff; }
+.card-thm  { font-size:.85rem; color:var(--muted); font-style:italic; }
+.tbadge    { display:flex; align-items:center; gap:.4rem; border:1px solid var(--border); border-radius:10px; padding:.6rem .9rem; white-space:nowrap; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:.95rem; letter-spacing:.05em; }
+
+.cdiv { height:1px; background:var(--border); margin:0 1.8rem .9rem; }
+.cbody { padding:0 1.8rem .9rem; font-size:.88rem; line-height:1.75; color:rgba(232,232,240,.7); font-weight:300; }
+.cchips { padding:0 1.8rem .9rem; display:flex; flex-wrap:wrap; gap:.5rem; }
+.chip { display:flex; align-items:center; gap:.35rem; border:1px solid var(--border); border-radius:100px; padding:.28rem .85rem; font-size:.72rem; font-weight:500; transition:border-color .2s; }
+.chip:hover { border-color:rgba(255,255,255,.22); }
+.cdot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+.chls { padding:0 1.8rem 1.8rem; display:grid; gap:.6rem; }
+.hi { display:flex; align-items:flex-start; gap:.7rem; font-size:.82rem; color:rgba(232,232,240,.62); line-height:1.5; }
+.hico { width:18px; height:18px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:.6rem; flex-shrink:0; margin-top:1px; }
+
+/* COLOUR THEMES */
+.ac .act-bar { background:var(--cyan); }
+.ac .card-tag { background:rgba(0,229,255,.12); color:var(--cyan); border:1px solid rgba(0,229,255,.25); }
+.ac .cdot { background:var(--cyan); }
+.ac .hico { background:rgba(0,229,255,.1); color:var(--cyan); }
+
+.ag .act-bar { background:var(--gold); }
+.ag .card-tag { background:rgba(245,200,66,.12); color:var(--gold); border:1px solid rgba(245,200,66,.25); }
+.ag .cdot { background:var(--gold); }
+.ag .hico { background:rgba(245,200,66,.1); color:var(--gold); }
+
+.agr .act-bar { background:var(--green); }
+.agr .card-tag { background:rgba(57,255,154,.12); color:var(--green); border:1px solid rgba(57,255,154,.25); }
+.agr .cdot { background:var(--green); }
+.agr .hico { background:rgba(57,255,154,.1); color:var(--green); }
+
+/* BANNER */
+.musex-banner { border:1px solid rgba(245,200,66,.2); border-radius:16px; padding:2rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; background:rgba(245,200,66,.04); margin-top:3.5rem; }
+.ban-ico { width:60px; height:60px; border-radius:14px; flex-shrink:0; background:rgba(245,200,66,.1); border:1px solid rgba(245,200,66,.25); display:flex; align-items:center; justify-content:center; font-size:1.6rem; }
+.ban-body { flex:1; min-width:160px; }
+.ban-ttl { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:.05em; margin-bottom:.2rem; }
+.ban-txt { font-size:.84rem; color:var(--muted); line-height:1.6; font-weight:300; }
+.ban-dates { text-align:right; }
+.ban-d { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; color:var(--gold); line-height:1; }
+.ban-ds { font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+
+/* FOOTER */
+footer { position:relative; z-index:1; padding:3rem 1.5rem; border-top:1px solid var(--border); text-align:center; }
+.foot-row { display:flex; justify-content:center; align-items:center; gap:1.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+.fl { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:.1em; opacity:.35; transition:opacity .2s; }
+.fl:hover { opacity:.75; }
+.fs { width:1px; height:18px; background:var(--border); }
+.ft { font-size:.77rem; color:var(--muted); }
+
+/* RESPONSIVE */
+@media (max-width:600px) {
+  .logos-grid { grid-template-columns:1fr; }
+  .overview { grid-template-columns:1fr; }
+  .ov { border-right:none; border-bottom:1px solid var(--border); }
+  .ov:last-child { border-bottom:none; }
+  .tl-prog { flex-wrap:wrap; gap:.5rem; }
+  .card-head { flex-direction:column; }
+  .ban-dates { text-align:left; }
+}
+</style>
+</head>
+<body>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+
+  <div class="pyramid-wrap">
+    <svg class="pyramid-svg" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="140" y1="240" x2="30"  y2="280" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
+      <line x1="140" y1="240" x2="80"  y2="280" stroke="rgba(0,229,255,.22)" stroke-width="1"/>
+      <line x1="140" y1="240" x2="140" y2="280" stroke="rgba(0,229,255,.28)" stroke-width="1.5"/>
+      <line x1="140" y1="240" x2="200" y2="280" stroke="rgba(0,229,255,.22)" stroke-width="1"/>
+      <line x1="140" y1="240" x2="250" y2="280" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
+      <path d="M55 240 L25 265 L75 252 Z"   fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.18)" stroke-width=".8"/>
+      <path d="M225 240 L255 265 L205 252 Z" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.18)" stroke-width=".8"/>
+      <rect x="75"  y="236" width="130" height="10" rx="2" fill="rgba(0,229,255,.1)"  stroke="rgba(0,229,255,.2)"  stroke-width=".8"/>
+      <rect x="88"  y="225" width="104" height="11" rx="2" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.15)" stroke-width=".8"/>
+      <path d="M140 58 L225 225 L55 225 Z" fill="url(#pyg)" stroke="rgba(0,229,255,.45)" stroke-width="1.2"/>
+      <path d="M140 58 L55  225 L140 225 Z" fill="rgba(0,229,255,.04)"/>
+      <path d="M140 58 L225 225 L140 225 Z" fill="rgba(0,229,255,.07)"/>
+      <line x1="108" y1="145" x2="172" y2="145" stroke="rgba(0,229,255,.12)" stroke-width=".6"/>
+      <line x1="92"  y1="183" x2="188" y2="183" stroke="rgba(0,229,255,.12)" stroke-width=".6"/>
+      <rect x="130" y="184" width="20" height="28" rx="10" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.3)"  stroke-width=".8"/>
+      <circle cx="140" cy="126" r="11" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.22)" stroke-width=".8"/>
+      <circle cx="140" cy="58"  r="3.5" fill="rgba(0,229,255,.9)"/>
+      <defs>
+        <linearGradient id="pyg" x1="140" y1="58" x2="140" y2="225" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stop-color="rgba(0,229,255,.12)"/>
+          <stop offset="100%" stop-color="rgba(0,229,255,0)"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="pyr-glow"></div>
+  </div>
+
+  <div class="badge"><span class="bdot"></span>17–19 Prill 2026 · Tiranë</div>
+
+  <div class="hero-title">
+    <div class="ht-white">PARLAMENTI I NXËNËSVE</div>
+    <div class="ht-gold">TË SHQIPËRISË</div>
+    <div class="ht-cyan">× MUSE-X 2026</div>
+  </div>
+
+  <p class="hero-sub">Ku arti, arsimi dhe inovacioni bashkohen në një stendë dinamike dhe plot jetë</p>
+
+  <div class="hero-pills">
+    <span class="pill-gold">17–19 Prill 2026</span>
+    <span class="pill-muted">📍 Tiranë, Shqipëri</span>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Agjenda</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="mi">PANEL DISKUTIMI <span>✦</span></div>
+    <div class="mi">ARSIM CILËSOR <span>✦</span></div>
+    <div class="mi">UDHËTIM NË HISTORI <span>✦</span></div>
+    <div class="mi">SHKENCË DHE ART <span>✦</span></div>
+    <div class="mi">INOVACION <span>✦</span></div>
+    <div class="mi">PNSH 2026 <span>✦</span></div>
+    <div class="mi">MUSE-X FESTIVAL <span>✦</span></div>
+    <div class="mi">NXËNËSIT NDRYSHOJNË BOTËN <span>✦</span></div>
+    <div class="mi">PANEL DISKUTIMI <span>✦</span></div>
+    <div class="mi">ARSIM CILËSOR <span>✦</span></div>
+    <div class="mi">UDHËTIM NË HISTORI <span>✦</span></div>
+    <div class="mi">SHKENCË DHE ART <span>✦</span></div>
+    <div class="mi">INOVACION <span>✦</span></div>
+    <div class="mi">PNSH 2026 <span>✦</span></div>
+    <div class="mi">MUSE-X FESTIVAL <span>✦</span></div>
+    <div class="mi">NXËNËSIT NDRYSHOJNË BOTËN <span>✦</span></div>
+  </div>
+</div>
+
+<section id="agenda">
+  <div class="agenda-inner">
+    <div class="sec-title">Agjenda e Aktiviteteve</div>
+    <p class="sec-sub">10:00 – 12:00 · Stenda PNSH · Muse-X 2026  19 prill </p>
+
+    <div class="overview">
+      <div class="ov"><span class="ov-val">3</span><span class="ov-lbl">Aktivitete</span></div>
+      <div class="ov"><span class="ov-val">120</span><span class="ov-lbl">Minuta</span></div>
+      <div class="ov"><span class="ov-val">50+</span><span class="ov-lbl">Eksperimente</span></div>
+    </div>
+
+    <div class="tl-prog">
+      <div class="tp tc"><div class="tp-dot">①</div><span class="tp-time">10:00</span><span class="tp-name">Panel</span></div>
+      <div class="tp tg"><div class="tp-dot">②</div><span class="tp-time">11:00</span><span class="tp-name">Histori</span></div>
+      <div class="tp tgr"><div class="tp-dot">③</div><span class="tp-time">11:45</span><span class="tp-name">Shkencë</span></div>
+      <div class="tp tw"><div class="tp-dot">✓</div><span class="tp-time">12:00</span><span class="tp-name">Fund</span></div>
+    </div>
+
+    <!-- CARD 1 -->
+    <div class="activity ac">
+      <div class="act-card">
+        <div class="act-bar"></div>
+        <div class="card-head">
+          <div class="card-meta">
+            <span class="card-num">AKTIVITETI 01</span>
+            <span class="card-tag">Panel Diskutimi</span>
+            <h2 class="card-ttl">Cilësia e Arsimit në Shqipëri</h2>
+            <p class="card-thm">Sfida dhe zgjidhje — zëri i nxënësve</p>
+          </div>
+          <div class="tbadge">🕙 10:00 – 11:00</div>
+        </div>
+        <div class="cdiv"></div>
+        <div class="cbody">Ky panel nuk është thjesht një diskutim — është një hapësirë ku zëri i nxënësve bëhet thelbësor. Pjesëmarrësit do të ndajnë përvojat e tyre reale nga sistemi arsimor: çfarë funksionon, çfarë duhet ndryshuar dhe si mund të përmirësohet cilësia e arsimit. Mendimet synohet të përçohen drejt institucioneve arsimore, duke u kthyer në hap real drejt ndryshimit.</div>
+        <div class="cdiv"></div>
+        <div class="cchips">
+          <div class="chip"><span class="cdot"></span>🎙 Ikbale Sula — Drejtues</div>
+          <div class="chip"><span class="cdot"></span>🎙 Endi Kaçuli — Drejtues</div>
+          <div class="chip"><span class="cdot"></span>👥 Nxënës nga shkolla të ndryshme</div>
+        </div>
+        <div class="chls">
+          <div class="hi"><div class="hico">💬</div>Dialog aktiv me pyetje nxitëse nga moderatorët</div>
+          <div class="hi"><div class="hico">💡</div>Ide konkrete dhe sugjerime praktike për arsimin</div>
+          <div class="hi"><div class="hico">📣</div>Rezultatet drejtohen te institucionet arsimore</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="activity ag">
+      <div class="act-card">
+        <div class="act-bar"></div>
+        <div class="card-head">
+          <div class="card-meta">
+            <span class="card-num">AKTIVITETI 02</span>
+            <span class="card-tag">Prezantim në Stendë</span>
+            <h2 class="card-ttl">Udhëtim në Histori Përmes Artit</h2>
+            <p class="card-thm">Evolucioni i qyteteve shqiptare ndër vite</p>
+          </div>
+          <div class="tbadge">🕙 11:00 – 11:45</div>
+        </div>
+        <div class="cdiv"></div>
+        <div class="cbody">Ky prezantim ju fton të udhëtoni në kohë. Përmes artit vizual dhe materialeve të përzgjedhura me kujdes, do të zbuloni se si kanë evoluar qytetet shqiptare ndër vite. Deputetët kanë realizuar piktura që pasqyrojnë jetën e përditshme në periudha të ndryshme historike, duke sjellë emocione dhe histori të harruara në një formë të gjallë dhe të prekshme.</div>
+        <div class="cdiv"></div>
+        <div class="cchips">
+          <div class="chip"><span class="cdot"></span>🏛 Deputetë të PNSH</div>
+          <div class="chip"><span class="cdot"></span>👥 Vizitorë të interesuar</div>
+        </div>
+        <div class="chls">
+          <div class="hi"><div class="hico">🖼</div>Piktura origjinale nga deputetët e PNSH</div>
+          <div class="hi"><div class="hico">📸</div>Album fotografik me pamje të vjetra të qyteteve</div>
+          <div class="hi"><div class="hico">📱</div>Website interaktiv i aksesueshëm përmes QR Code</div>
+          <div class="hi"><div class="hico">🌐</div>Eksplorim digjital i historisë shqiptare</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="activity agr">
+      <div class="act-card">
+        <div class="act-bar"></div>
+        <div class="card-head">
+          <div class="card-meta">
+            <span class="card-num">AKTIVITETI 03</span>
+            <span class="card-tag">Prezantim në Stendë</span>
+            <h2 class="card-ttl">Shkenca Përmes Artit Vizual</h2>
+            <p class="card-thm">Eksperimente, Robotikë &amp; Inovacion</p>
+          </div>
+          <div class="tbadge">🕙 11:45 – 12:00</div>
+        </div>
+        <div class="cdiv"></div>
+        <div class="cbody">Ky aktivitet sjell një ndërthurje unike midis shkencës dhe kreativitetit. Komisioni i Shkencës, Robotikës dhe Inovacionit ka krijuar një website interaktiv me mbi 50 eksperimente. Shkenca shndërrohet në një përvojë vizuale dhe të kuptueshme — jo vetëm "si funksionon", por edhe "pse funksionon".</div>
+        <div class="cdiv"></div>
+        <div class="cchips">
+          <div class="chip"><span class="cdot"></span>🔬 Komisioni i Shkencës &amp; Robotikës</div>
+          <div class="chip"><span class="cdot"></span>💡 Komisioni i Inovacionit</div>
+          <div class="chip"><span class="cdot"></span>👥 Nxënës të ftuar</div>
+        </div>
+        <div class="chls">
+          <div class="hi"><div class="hico">🧪</div>50+ eksperimente nga fusha të ndryshme</div>
+          <div class="hi"><div class="hico">🖥</div>Website interaktiv hap-pas-hapi</div>
+          <div class="hi"><div class="hico">🤔</div>Nxit mendimin kritik dhe kureshtjen</div>
+          <div class="hi"><div class="hico">🎨</div>Shkenca e parë si art — kreative dhe frymëzuese</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="musex-banner">
+      <div class="ban-ico">⭐</div>
+      <div class="ban-body">
+        <div class="ban-ttl">Festivali MUSE-X 2026</div>
+        <p class="ban-txt">PNSH është pjesë e festivalit të madh MUSE-X — Electronic Friday · Pop Saturday · Rock Sunday</p>
+      </div>
+      <div class="ban-dates">
+        <div class="ban-d">17–19</div>
+        <div class="ban-ds">Prill 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="logos">
+  <div class="logos-inner">
+    <div class="sec-label">Partnerët &amp; Organizatorët</div>
+    <div class="logos-grid">
+      <div class="logo-slot"><div class="pnsh">①</div><span class="logo-lbl">Logo 1</span></div>
+      <div class="logo-slot"><div class="ma">②</div><span class="logo-lbl">Logo 2</span></div>
+      <div class="logo-slot"><div class="muse">③</div><span class="logo-lbl">Logo 3</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-row">
+    <span class="fl">PNSH</span>
+    <div class="fs"></div>
+    <span class="fl">MUSE-X 2026</span>
+    <div class="fs"></div>
+    <span class="fl">TIRANË</span>
+  </div>
+  <p class="ft">Parlamenti i Nxënësve të Shqipërisë · Stenda Interaktive · 17–19 Prill 2026</p>
+</footer>
+
+<script>
+// Only JS: reveal cards on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.activity').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.1) + 's';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
